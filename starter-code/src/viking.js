@@ -73,7 +73,7 @@ War.prototype.addSaxon = function(saxon) {
   this.saxonArmy.push(saxon);
 };
 
-War.prototype.vikingAttack = function() {
+/*War.prototype.vikingAttack = function() {
   var i = Math.floor(Math.random() * this.saxonArmy.length);
   var j = Math.floor(Math.random() * this.vikingArmy.length);
   this.saxonArmy[i].health -= this.vikingArmy[j].strength;
@@ -81,12 +81,32 @@ War.prototype.vikingAttack = function() {
     this.saxonArmy.length = 0;
     return "A Saxon has died in combat";
   }
+};*/
+War.prototype.vikingAttack = function (){
+  var i = Math.floor(Math.random() * this.saxonArmy.length);
+  var j = Math.floor(Math.random() * this.vikingArmy.length);
+  this.saxonArmy[i].receiveDamage(this.vikingArmy[j].attack());
+  if (this.saxonArmy[i].health <= 0) {
+    this.saxonArmy.length = 0;
+    return "A Saxon has died in combat";
+  }
 };
+
+/*War.prototype.saxonAttack = function() {
+  var i = Math.floor(Math.random() * this.saxonArmy.length);
+  var j = Math.floor(Math.random() * this.vikingArmy.length);
+  this.vikingArmy[j].health -= this.saxonArmy[i].strength;
+  if (this.vikingArmy[j].health <= 0) {
+    this.vikingArmy.length = 0;
+  } else {
+    return (this.vikingArmy[j].name  + " has received " + this.saxonArmy[i].strength + " points of damage");
+  }
+};*/
 
 War.prototype.saxonAttack = function() {
   var i = Math.floor(Math.random() * this.saxonArmy.length);
   var j = Math.floor(Math.random() * this.vikingArmy.length);
-  this.vikingArmy[j].health -= this.saxonArmy[i].strength;
+  this.vikingArmy[j].receiveDamage(this.saxonArmy[i].attack());
   if (this.vikingArmy[j].health <= 0) {
     this.vikingArmy.length = 0;
   } else {
